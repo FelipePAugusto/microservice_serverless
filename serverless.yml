@@ -1,0 +1,74 @@
+service: themis-legalcontrol-api-serverless
+
+plugins:
+  - serverless-python-requirements
+#   - serverless-offline
+#   - serverless-plugin-canary-deployments
+#   - serverless-plugin-resource-tagging
+# custom:
+#   wsgi:
+#     app: app.app
+#     packRequirements: false
+#   pythonRequirements:
+#     dockerizePip: non-linux
+    # requirementsFile: requirements.txt
+# custom:
+#   pkgPyFuncs: # plugin configuration
+#     buildDir: _build
+#     requirementsFile: 'requirements.txt'
+#     cleanup: true
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: python3.8
+  lambdaHashingVersion: '20201221'
+  # iam:
+  #   role:
+  #     statements:
+  #       - Effect: "Allow"
+  #         Action:
+  #           - sqs:SendMessage
+  #           - sqs:GetQueueUrl
+  #           - sqs:ListQueues
+  #         Resources: 
+  #           - arn:aws:sqs:us-east-1:627333228566:queueName-Vai
+
+
+# provider:
+#   name: aws
+#   # region: ${env:AWS_REGION}
+#   lambdaHashingVersion: '20201221'
+#   # environment: ${ssm:/aws/reference/secretsmanager/${env:SECRET_NAME}}
+#   # apiGateway:
+#   #   shouldStartNameWithService: true
+#   # deploymentBucket: ${env:LAMBDA_DEPLOYMENT_BUCKET}
+#   #   deploymentPrefix: ${self:service}
+#   #   stackTags:
+#   #     App: ${env:APP_NAME}
+#   #     Env: ${env:ENVIRONMENT_NAME}
+# #    layers:
+# #      - arn:aws:lambda:${env:AWS_REGION}:${env:ACCOUNT_ID}:layer:boto3-python:1
+#   runtime: python3.8
+#   # stage: ${env:ENVIRONMENT_NAME}
+
+  
+functions:
+  hello:
+    handler: handler.hello
+    description: descrição da função.
+    events:
+      - http:
+          path: /
+          method: POST
+          integration: lambda
+      - sqs: arn:aws:sqs:us-east-1:627333228566:queueName-Vai
+
+resources:
+  Resources:
+    queueName:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: queueName-Vai
+        DelaySeconds: 0
