@@ -14,9 +14,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "aws-sdk": "^2.1036.0",
     "serverless-iam-roles-per-function": "^3.2.0-e97ab49",
     "serverless-offline": "^8.0.0",
     "serverless-plugin-canary-deployments": "^0.6.0",
     "serverless-python-requirements": "^5.1.1"
+  },
+  "dependencies": {
+    "uuid": "^8.3.2"
   }
 }

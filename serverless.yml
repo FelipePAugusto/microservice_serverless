@@ -1,3 +1,4 @@
+org: felipepaugusto
 service: themis-legalcontrol-api-serverless
 
 plugins:
@@ -7,7 +8,7 @@ plugins:
 #   - serverless-plugin-resource-tagging
 # custom:
 #   wsgi:
-#     app: app.app
+app: apirest-template
 #     packRequirements: false
 #   pythonRequirements:
 #     dockerizePip: non-linux
@@ -24,6 +25,7 @@ provider:
   name: aws
   runtime: python3.8
   lambdaHashingVersion: '20201221'
+  region: us-east-1
   # iam:
   #   role:
   #     statements:
@@ -38,7 +40,7 @@ provider:
 
 # provider:
 #   name: aws
-#   # region: ${env:AWS_REGION}
+#   region: us-east-1
 #   lambdaHashingVersion: '20201221'
 #   # environment: ${ssm:/aws/reference/secretsmanager/${env:SECRET_NAME}}
 #   # apiGateway:
